@@ -1,0 +1,167 @@
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+
+// Data
+const services = [
+    'Brand Strategy',
+    'Visual Identity',
+    'Web Design',
+    'UI/UX Design',
+    'Motion Design',
+    'Art Direction',
+]
+
+const awards = [
+    { name: 'Awwwards SOTD', project: 'Denderty', year: '2024' },
+    { name: 'CSS Design Awards', project: 'White Stone', year: '2023' },
+    { name: 'FWA of the Day', project: 'Maxima Legal', year: '2023' },
+]
+
+const experience = [
+    { role: 'Creative Director', company: 'Freelance', period: '2022 – Present' },
+    { role: 'Senior Designer', company: 'AVA Studio', period: '2020 – 2022' },
+    { role: 'Visual Designer', company: 'Digital Agency', period: '2018 – 2020' },
+]
+
+export default function Info() {
+    const titleRef = useRef<HTMLHeadingElement>(null)
+    const bioRef = useRef<HTMLDivElement>(null)
+    const detailsRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+
+            tl.fromTo(
+                titleRef.current,
+                { y: 80, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1 }
+            )
+                .fromTo(
+                    bioRef.current,
+                    { y: 60, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.8 },
+                    '-=0.5'
+                )
+
+            // Animate detail sections on scroll
+            gsap.utils.toArray<HTMLElement>('.info-section').forEach((section) => {
+                gsap.fromTo(
+                    section,
+                    { y: 40, opacity: 0 },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top 85%',
+                            toggleActions: 'play none none reverse',
+                        },
+                    }
+                )
+            })
+        })
+
+        return () => ctx.revert()
+    }, [])
+
+    return (
+        <div className="page-container pt-32 md:pt-40">
+            {/* Header */}
+            <section className="mb-20 md:mb-32">
+                <span className="label-small mb-4 block">About</span>
+                <h1
+                    ref={titleRef}
+                    className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter"
+                >
+                    Info
+                </h1>
+            </section>
+
+            {/* Main Content - Split Layout */}
+            <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 pb-20 md:pb-32">
+                {/* Left Column - Bio */}
+                <div ref={bioRef} className="lg:col-span-6">
+                    <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-relaxed tracking-tight mb-8">
+                        I'm Nadilla Ananda, a passionate creative who works closely with
+                        companies to help them unlock their full potential.
+                    </p>
+                    <p className="text-lg text-muted leading-relaxed mb-8">
+                        With over 6 years of experience in digital design, I specialize in
+                        creating memorable brand identities and web experiences. I believe
+                        in the power of thoughtful design to solve complex business problems
+                        and create lasting connections with audiences.
+                    </p>
+                    <p className="text-lg text-muted leading-relaxed">
+                        When I'm not designing, you'll find me exploring new coffee shops,
+                        reading about design history, or experimenting with new creative
+                        tools and technologies.
+                    </p>
+                </div>
+
+                {/* Right Column - Details */}
+                <div ref={detailsRef} className="lg:col-span-6 space-y-16">
+                    {/* Services */}
+                    <div className="info-section">
+                        <h3 className="label-small mb-6">Services</h3>
+                        <ul className="space-y-3">
+                            {services.map((service, i) => (
+                                <li
+                                    key={service}
+                                    className="text-lg flex items-center gap-4 group"
+                                >
+                                    <span className="text-muted text-sm">(0{i + 1})</span>
+                                    <span className="group-hover:text-muted transition-colors duration-300">
+                                        {service}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Awards */}
+                    <div className="info-section">
+                        <h3 className="label-small mb-6">Recognition</h3>
+                        <ul className="space-y-4">
+                            {awards.map((award) => (
+                                <li
+                                    key={award.name + award.year}
+                                    className="flex items-center justify-between border-b border-foreground/10 pb-4"
+                                >
+                                    <div>
+                                        <p className="font-medium">{award.name}</p>
+                                        <p className="text-muted text-sm">{award.project}</p>
+                                    </div>
+                                    <span className="text-muted text-sm">{award.year}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Experience */}
+                    <div className="info-section">
+                        <h3 className="label-small mb-6">Experience</h3>
+                        <ul className="space-y-4">
+                            {experience.map((exp) => (
+                                <li
+                                    key={exp.role + exp.company}
+                                    className="flex items-center justify-between border-b border-foreground/10 pb-4"
+                                >
+                                    <div>
+                                        <p className="font-medium">{exp.role}</p>
+                                        <p className="text-muted text-sm">{exp.company}</p>
+                                    </div>
+                                    <span className="text-muted text-sm">{exp.period}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    )
+}
