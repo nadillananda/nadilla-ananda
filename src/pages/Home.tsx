@@ -1,49 +1,22 @@
 
 import { useEffect, useRef, useState } from 'react'
+import homePageImg from '../assets/home-page.jpg'
+
+// ... (keep existing imports)
+
+// ... inside component ...
+<img
+    src={homePageImg}
+    alt="Background"
+    className="w-full h-full object-cover grayscale"
+/>
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const projects = [
-    {
-        id: 1,
-        title: "Denderty Official",
-        category: "Web Design",
-        image: "https://images.unsplash.com/photo-1481487484168-9b930d5b41d5?w=800&h=600&fit=crop"
-    },
-    {
-        id: 2,
-        title: "Maxima Legal",
-        category: "Brand Identity",
-        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop"
-    },
-    {
-        id: 3,
-        title: "White Stone",
-        category: "Architecture",
-        image: "https://images.unsplash.com/photo-1511818966892-d7d671e672a2?w=800&h=600&fit=crop"
-    },
-    {
-        id: 4,
-        title: "AZPO Estate",
-        category: "Real Estate",
-        image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop"
-    },
-    {
-        id: 5,
-        title: "Maison De Luxe",
-        category: "Interior Design",
-        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4f9d?w=800&h=600&fit=crop"
-    },
-    {
-        id: 6,
-        title: "Nordic Living",
-        category: "Furniture",
-        image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop"
-    }
-]
+import { projects } from '../data/projects'
 
 const skills = {
     capabilities: ["Art Direction", "Digital Experience", "Brand Strategy", "Creative Development"],
@@ -251,13 +224,13 @@ export default function Home() {
             {/* HERO SECTION */}
             <section className="relative h-screen w-full flex flex-col items-center justify-between py-10 px-6 md:px-12 overflow-hidden">
                 {/* Background Image (Subtle) */}
-                <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
                     <img
-                        src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=1920&h=1080&fit=crop"
+                        src={homePageImg}
                         alt="Background"
-                        className="w-full h-full object-cover grayscale"
+                        className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-background/80" />
+                    <div className="absolute inset-0 bg-background/50" />
                 </div>
 
                 {/* Top Center Text */}
@@ -384,14 +357,16 @@ export default function Home() {
                             <Link to="/work" key={project.id} className="work-card group block">
                                 <div className="relative aspect-[4/3] overflow-hidden mb-6">
                                     <div className="absolute inset-0 bg-foreground/10 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+
                                     <img
                                         src={project.image}
-                                        alt={project.title}
+                                        alt={project.name}
                                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out-expo grayscale group-hover:grayscale-0"
                                     />
                                 </div>
                                 <div className="flex justify-between items-end border-b border-foreground/20 pb-4 group-hover:border-foreground transition-colors duration-500">
-                                    <h3 className="text-3xl md:text-4xl font-serif italic">{project.title}</h3>
+                                    <h3 className="text-3xl md:text-4xl font-serif italic">{project.name}</h3>
                                     <span className="text-xs uppercase tracking-widest text-muted group-hover:text-foreground transition-colors duration-300">{project.category}</span>
                                 </div>
                             </Link>
@@ -497,7 +472,7 @@ export default function Home() {
                                         <p className="text-xl md:text-2xl font-light text-muted">
                                             Jakarta, Indonesia
                                             <br />
-                                            <span className="text-base text-muted/60">Available Worldwide</span>
+                                            <span className="text-base text-muted/60">Available to remote Worldwide</span>
                                         </p>
                                     </div>
 
@@ -531,13 +506,16 @@ export default function Home() {
                 </div>
 
                 {/* Top Section: Heading & Contact Link */}
-                <div className="relative z-10 text-center mt-10 md:mt-16 flex flex-col items-center">
-                    <h2 className="text-xl md:text-3xl lg:text-4xl font-serif italic text-muted mb-2">
-                        Have an idea? <span className="text-foreground not-italic font-sans text-lg md:text-xl">Let's build it</span>
+                <div ref={topTextRef} className="relative z-10 text-center mt-10 md:mt-16">
+                    <h2 className="text-xl md:text-2xl lg:text-3xl font-serif italic text-muted mb-2">
+                        Have an idea? <span className="text-foreground not-italic font-sans text-lg md:text-xl">Let's make it happen</span>
                     </h2>
+                    <p className="text-foreground text-lg md:text-xl font-medium">
+                        Let's turn your vision into reality.
+                    </p>
 
                     <Link to="/contact" className="text-1xl md:text-2xl font-light tracking-tight hover:italic hover:text-muted transition-all duration-300">
-                        Contact Me
+                        (contact me here)
                     </Link>
                 </div>
 
@@ -558,9 +536,9 @@ export default function Home() {
 
                     {/* Socials (Center) */}
                     <div className="order-2 md:order-2 flex gap-6 w-full md:w-auto justify-center">
-                        <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
-                        <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Github</a>
-                        <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Linkedin</a>
+                        <a href="https://instagram.com/s4inteves" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
+                        <a href="https://github.com/nadillananda" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Github</a>
+                        <a href="https://www.linkedin.com/in/nadillananda/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Linkedin</a>
                     </div>
 
                     {/* Scroll to Top (Right) */}

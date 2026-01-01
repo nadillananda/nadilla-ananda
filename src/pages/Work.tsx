@@ -4,65 +4,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// All projects data
-const projects = [
-    {
-        id: 1,
-        name: 'Denderty Official',
-        category: 'Web Design',
-        year: '2024',
-        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 2,
-        name: 'Maxima Legal',
-        category: 'Brand Identity',
-        year: '2024',
-        image: 'https://images.unsplash.com/photo-1634017839464-5c339afa5e6a?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 3,
-        name: 'White Stone',
-        category: 'Website',
-        year: '2023',
-        image: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 4,
-        name: 'AZPO Estate',
-        category: 'Brand & Web',
-        year: '2023',
-        image: 'https://images.unsplash.com/photo-1604871000636-074fa5117945?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 5,
-        name: 'The Anix',
-        category: 'Music Artist',
-        year: '2023',
-        image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 6,
-        name: 'Shadxw',
-        category: 'Brand Identity',
-        year: '2022',
-        image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 7,
-        name: 'Elkruff',
-        category: 'E-commerce',
-        year: '2022',
-        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=1000&fit=crop',
-    },
-    {
-        id: 8,
-        name: 'Orto Medical',
-        category: 'Healthcare',
-        year: '2022',
-        image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=1000&fit=crop',
-    },
-]
+import { projects } from '../data/projects'
+
+// ... existing component logic ...
 
 export default function Work() {
     const titleRef = useRef<HTMLHeadingElement>(null)
@@ -90,13 +34,13 @@ export default function Work() {
                         ease: 'power2.out',
                         scrollTrigger: {
                             trigger: card,
-                            start: 'top 85%',
+                            start: 'top 90%',
                             toggleActions: 'play none none reverse',
                         },
                     }
                 )
             })
-        })
+        }, gridRef) // Scope to gridRef if possible, or main container
 
         return () => ctx.revert()
     }, [])
@@ -112,38 +56,120 @@ export default function Work() {
                 >
                     Selected Work
                 </h1>
-                <p className="text-muted text-lg mt-6 max-w-xl">
+                <p className="text-muted text-lg mt-6 max-w-xl text-justify">
                     A curated collection of projects spanning brand identity, web design,
                     and digital experiences.
                 </p>
             </section>
 
             {/* Projects Grid */}
-            <section ref={gridRef} className="pb-20 md:pb-32">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            <section ref={gridRef} className="pb-20 md:pb-32 border-b border-foreground/10 mb-20 md:mb-32">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {projects.map((project) => (
-                        <article key={project.id} className="work-card group cursor-pointer">
-                            {/* Image Container */}
-                            <div className="relative aspect-[4/5] overflow-hidden mb-4">
-                                <img
-                                    src={project.image}
-                                    alt={project.name}
-                                    className="w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
-                                />
-                                <div className="absolute inset-0 bg-background/0 group-hover:bg-background/10 transition-colors duration-500" />
-                            </div>
+                        <article key={project.id} className="work-card group cursor-pointer relative aspect-[4/5] overflow-hidden bg-gray-100">
+                            {/* Background Image */}
+                            <img
+                                src={project.image}
+                                alt={project.name}
+                                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out-expo group-hover:scale-105"
+                            />
 
-                            {/* Project Info */}
-                            <div className="flex items-start justify-between">
-                                <div>
-                                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight mb-1 group-hover:text-muted transition-colors duration-300">
-                                        {project.name}
-                                    </h3>
-                                    <p className="text-muted text-sm">{project.category}</p>
-                                </div>
-                                <span className="text-muted text-sm">{project.year}</span>
+                            {/* Noir Overlay (Black Background) */}
+                            <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out" />
+
+                            {/* Text Content (White on Black) */}
+                            <div className="absolute inset-0 p-8 flex flex-col justify-center items-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 z-10">
+                                <span className="text-white/60 text-xs uppercase tracking-widest mb-4">
+                                    {project.category}
+                                </span>
+
+                                <h3 className="text-3xl font-serif italic text-white mb-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-150">
+                                    {project.name}
+                                </h3>
+
+                                <div className="w-8 h-px bg-white/30 my-6" />
+
+                                <p className="text-white/90 text-sm font-light leading-relaxed max-w-[80%] translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-200">
+                                    {project.description}
+                                </p>
+
+                                <span className="absolute bottom-8 text-white/40 text-xs font-mono">
+                                    {project.year}
+                                </span>
                             </div>
                         </article>
+                    ))}
+                </div>
+            </section>
+
+            {/* Work Experience Section */}
+            <section className="pb-20 md:pb-32 max-w-4xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-serif italic mb-12 text-center">Work Experience</h2>
+                <div className="space-y-8">
+                    {[
+                        {
+                            role: "IT Support",
+                            company: "PT. Asahi Sukses Industri",
+                            period: "November 2025 [Project]",
+                            description: "Managed network infrastructure and provided technical support for enterprise systems."
+                        },
+                        {
+                            role: "Full-Time Barista",
+                            company: "Navigasi Coffee",
+                            period: "March 2024 - August 2025",
+                            description: "Crafted high-quality coffee beverages and maintained excellent customer service standards."
+                        },
+                        {
+                            role: "Modelling",
+                            company: "Red Horse",
+                            period: "Febuary 2024 [Project]",
+                            description: "Collaborated with photographers and creative directors for commercial fashion campaigns."
+                        },
+                        {
+                            role: "Office Administrator",
+                            company: "PT. Octo Corindo",
+                            period: "December 2019 - February 2020",
+                            description: "Optimized office workflows and managed administrative operations for efficiency."
+                        },
+                    ].map((job, index) => (
+                        <div key={index} className="flex flex-col md:flex-row justify-between items-start border-b border-foreground/10 pb-6 group hover:border-foreground/30 transition-colors duration-300">
+                            <div className="md:max-w-md">
+                                <h3 className="text-xl font-medium mb-1">{job.role}</h3>
+                                <p className="text-muted mb-3">{job.company}</p>
+                                <p className="text-foreground/80 font-light text-sm leading-relaxed">{job.description}</p>
+                            </div>
+                            <span className="text-muted/60 font-mono text-sm mt-4 md:mt-0 flex-shrink-0">{job.period}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Education Section */}
+            <section className="pb-20 md:pb-32 max-w-4xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-serif italic mb-12 text-center">Education</h2>
+                <div className="space-y-8">
+                    {[
+                        {
+                            degree: "Computer Science",
+                            school: "Universitas Pasundan",
+                            period: "2019 - 2023",
+                            description: "Focus on Enterprise Systems & Database Management."
+                        },
+                        {
+                            degree: "High School Diploma",
+                            school: "SMKS Informatika Amanah Bangsa",
+                            period: "2016 - 2019",
+                            description: "Science Major with focus on Physics and Mathematics."
+                        }
+                    ].map((edu, index) => (
+                        <div key={index} className="flex flex-col md:flex-row justify-between items-start border-b border-foreground/10 pb-6 group hover:border-foreground/30 transition-colors duration-300">
+                            <div className="md:max-w-md">
+                                <h3 className="text-xl font-medium mb-1">{edu.degree}</h3>
+                                <p className="text-muted mb-3">{edu.school}</p>
+                                <p className="text-foreground/80 font-light text-sm leading-relaxed">{edu.description}</p>
+                            </div>
+                            <span className="text-muted/60 font-mono text-sm mt-4 md:mt-0 flex-shrink-0">{edu.period}</span>
+                        </div>
                     ))}
                 </div>
             </section>

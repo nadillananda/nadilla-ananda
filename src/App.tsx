@@ -6,6 +6,8 @@ import Work from './pages/Work'
 import Info from './pages/Info'
 import Contact from './pages/Contact'
 
+
+
 function App() {
     React.useEffect(() => {
         // Set document title

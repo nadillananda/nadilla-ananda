@@ -19,10 +19,10 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    const positionClass = isHome && !isScrolled ? 'bottom-0' : 'top-0'
+    const positionClass = isHome && !isScrolled ? 'translate-y-[calc(100vh-100%)]' : 'translate-y-0'
 
     return (
-        <header className={`fixed ${positionClass} right-0 z-50 p-6 md:p-10 mix-blend-difference transition-all duration-500 ease-in-out`}>
+        <header className={`fixed top-0 right-0 z-50 p-6 md:p-10 mix-blend-difference transition-transform duration-700 ease-in-out ${positionClass}`}>
             <nav>
                 <ul className="flex items-center gap-6 md:gap-8">
                     {[
