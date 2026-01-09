@@ -1,6 +1,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import homePageImg from '../assets/home-page.jpg'
+import introBackgroundImg from '../assets/intro-background.jpg'
+import aboutProfileImg from '../assets/about-profile.jpg'
 
 // ... (keep existing imports)
 
@@ -19,9 +21,9 @@ gsap.registerPlugin(ScrollTrigger)
 import { projects } from '../data/projects'
 
 const skills = {
-    capabilities: ["Art Direction", "Digital Experience", "Brand Strategy", "Creative Development"],
+    capabilities: ["Full-Stack Development", , "UI/UX ", "Media Design", "Beverage Development", "Coffee Roastery"],
     expertise: ["React.js / Next.js", "TypeScript", "MySQL / Node.js", "Tailwind CSS", "Figma"],
-    inspiration: ["Cinema", "Brutalism", "Art Deco", "Music", "Cinema"]
+    inspiration: ["Cinema", "Brutalism", "Art Deco", "Music", "Art"]
 }
 
 export default function Home() {
@@ -226,7 +228,7 @@ export default function Home() {
                 {/* Background Image (Subtle) */}
                 <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
                     <img
-                        src={homePageImg}
+                        src={introBackgroundImg}
                         alt="Background"
                         className="w-full h-full object-cover object-center"
                     />
@@ -290,18 +292,12 @@ export default function Home() {
                         {/* Image (Left) - Spans 5 cols */}
                         <div className="md:col-span-5 relative order-2 md:order-1">
                             <div className="relative w-full aspect-[4/5] overflow-hidden">
-                                {/* Red Overlay Effect */}
-                                <div className="absolute inset-0 bg-[#E63928] mix-blend-multiply z-10 pointer-events-none opacity-80" />
                                 <img
                                     ref={aboutImgRef}
-                                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&h=1600&fit=crop"
+                                    src={aboutProfileImg}
                                     alt="Nadilla Ananda"
                                     className="object-cover w-full h-full grayscale contrast-125"
                                 />
-
-                                <div className="absolute top-1/2 -left-8 md:-left-12 -translate-y-1/2 z-20">
-                                    <span className="text-4xl md:text-6xl font-bold font-sans text-blue-400">A</span>
-                                </div>
                             </div>
                         </div>
 
@@ -322,7 +318,9 @@ export default function Home() {
                                         <span className="text-sm uppercase tracking-widest text-muted">(Info)</span>
                                     </div>
                                     <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light">
-                                        My name is Nadilla. I’m a passionate creative who works closely with companies to help them unlock their full potential and solve specific business problems with effective and memorable design solutions.
+                                        I specialize in creating brand identities with web experiences. I believe
+                                        in the power of thoughtful design to solve complex business problems
+                                        and create lasting connections with audiences.
                                     </p>
                                     <div>
                                         <Link to="/info" className="inline-block text-lg font-medium border-b border-foreground/30 pb-1 hover:border-foreground transition-colors hover:text-white">
@@ -451,16 +449,16 @@ export default function Home() {
                                     <h3 className="label-small mb-6 md:mb-8 border-b border-foreground/20 pb-4">Connect</h3>
                                     <ul className="space-y-2">
                                         <li>
-                                            <a href="mailto:hello@nadillaananda.com" className="text-xl md:text-2xl font-light link-hover">Email</a>
+                                            <a href="mailto:747nadillananda@gmail.com" className="text-xl md:text-2xl font-light link-hover">Email</a>
                                         </li>
                                         <li>
-                                            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-xl md:text-2xl font-light link-hover">Instagram</a>
+                                            <a href="https://www.instagram.com/s4inteves/" target="_blank" rel="noopener noreferrer" className="text-xl md:text-2xl font-light link-hover">Instagram</a>
                                         </li>
                                         <li>
-                                            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-xl md:text-2xl font-light link-hover">LinkedIn</a>
+                                            <a href="https://www.linkedin.com/in/nadillananda/" target="_blank" rel="noopener noreferrer" className="text-xl md:text-2xl font-light link-hover">LinkedIn</a>
                                         </li>
                                         <li>
-                                            <a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="text-xl md:text-2xl font-light link-hover">Behance</a>
+                                            <a href="https://github.com/nadillananda" target="_blank" rel="noopener noreferrer" className="text-xl md:text-2xl font-light link-hover">GitHub</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -472,7 +470,7 @@ export default function Home() {
                                         <p className="text-xl md:text-2xl font-light text-muted">
                                             Jakarta, Indonesia
                                             <br />
-                                            <span className="text-base text-muted/60">Available to remote Worldwide</span>
+                                            <span className="text-base text-muted/60">Available to remote worldwide</span>
                                         </p>
                                     </div>
 
@@ -492,17 +490,15 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* OUTRO SECTION (Duplicate Hero) */}
-            {/* OUTRO SECTION (Duplicate Hero) */}
+            {/* OUTRO SECTION */}
             <section className="relative h-screen w-full flex flex-col items-center justify-between py-10 px-6 md:px-12 overflow-hidden">
-                {/* Background Image (Different) */}
-                <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+                <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
                     <img
-                        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop"
+                        src={introBackgroundImg}
                         alt="Outro Background"
-                        className="w-full h-full object-cover grayscale"
+                        className="w-full h-full object-cover object-center"
                     />
-                    <div className="absolute inset-0 bg-background/80" />
+                    <div className="absolute inset-0 bg-background/50" />
                 </div>
 
                 {/* Top Section: Heading & Contact Link */}

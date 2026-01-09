@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 
 const socialLinks = [
-    { name: 'Email', url: 'mailto:hello@747nadillananda.com' },
+    { name: 'Email', url: 'mailto:747nadillananda@gmail.com' },
     { name: 'Instagram', url: 'https://www.instagram.com/s4inteves/' },
     { name: 'LinkedIn', url: 'https://www.linkedin.com/in/nadillananda/' },
     { name: 'GitHub', url: 'https://github.com/nadillananda' },
@@ -85,7 +85,7 @@ export default function Contact() {
                             onChange={(e) =>
                                 setFormData({ ...formData, name: e.target.value })
                             }
-                            placeholder="John Doe"
+                            placeholder="Nadilla Ananda"
                             required
                             className="w-full bg-transparent border-b border-foreground/20 py-4 text-lg 
                          focus:outline-none focus:border-foreground transition-colors duration-300

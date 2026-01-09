@@ -150,7 +150,7 @@ export default function Work() {
                 <div className="space-y-8">
                     {[
                         {
-                            degree: "Computer Science",
+                            degree: "Computer Science (on academic leave)",
                             school: "Universitas Pasundan",
                             period: "2019 - 2023",
                             description: "Focus on Enterprise Systems & Database Management."

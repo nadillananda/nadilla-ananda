@@ -6,24 +6,22 @@ gsap.registerPlugin(ScrollTrigger)
 
 // Data
 const services = [
-    'Brand Strategy',
-    'Visual Identity',
-    'Web Design',
-    'UI/UX Design',
-    'Motion Design',
-    'Art Direction',
+    'Development',
+    'UI/UX',
+    'Design',
+    'Beverage Development',
+    'Coffee Roastery',
 ]
 
 const awards = [
-    { name: 'Awwwards SOTD', project: 'Denderty', year: '2024' },
-    { name: 'CSS Design Awards', project: 'White Stone', year: '2023' },
-    { name: 'FWA of the Day', project: 'Maxima Legal', year: '2023' },
+    { name: 'Best Composition for Short Films', project: 'Jeya Short Movie', year: '2020' },
 ]
 
 const experience = [
-    { role: 'Creative Director', company: 'Freelance', period: '2022 – Present' },
-    { role: 'Senior Designer', company: 'AVA Studio', period: '2020 – 2022' },
-    { role: 'Visual Designer', company: 'Digital Agency', period: '2018 – 2020' },
+    { role: 'IT Support', company: 'PT. Asahi Mitra Industri', period: 'Nov, 2025 [PROJECT]' },
+    { role: 'Full-Time Barista', company: 'Navigasi Coffee', period: 'March 2024 - August 2025' },
+    { role: 'Modelling', company: 'Red Horse', period: 'February, 2024 [PROJECT]' },
+    { role: 'Office Administrator', company: 'PT. Octo Corindo', period: 'February, 2019 - February, 2020]' },
 ]
 
 export default function Info() {
@@ -87,19 +85,17 @@ export default function Info() {
                 {/* Left Column - Bio */}
                 <div ref={bioRef} className="lg:col-span-6">
                     <p className="text-2xl md:text-3xl lg:text-4xl font-medium leading-relaxed tracking-tight mb-8">
-                        I'm Nadilla Ananda, a passionate creative who works closely with
-                        companies to help them unlock their full potential.
+                        You can call me Nadilla ^^
                     </p>
                     <p className="text-lg text-muted leading-relaxed mb-8">
-                        With over 6 years of experience in digital design, I specialize in
-                        creating memorable brand identities and web experiences. I believe
+                        I specialize in creating brand identities with web experiences. I believe
                         in the power of thoughtful design to solve complex business problems
                         and create lasting connections with audiences.
                     </p>
                     <p className="text-lg text-muted leading-relaxed">
-                        When I'm not designing, you'll find me exploring new coffee shops,
-                        reading about design history, or experimenting with new creative
-                        tools and technologies.
+                        When I'm not doing my work, you'll find me exploring specialty coffee and all about technology.
+                        Besides that, i love to read, play instruments or learning with new creative
+                        tools, and technologies.
                     </p>
                 </div>
 
