@@ -1,5 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import emailjs from '@emailjs/browser'
+
+declare global {
+    interface Window {
+        grecaptcha: {
+            ready: (callback: () => void) => void
+            execute: (siteKey: string, options: { action: string }) => Promise<string>
+            render: (element: HTMLElement, options: { sitekey: string; callback: (token: string) => void }) => number
+            reset: (widgetId: number) => void
+        }
+    }
+}
 
 const socialLinks = [
     { name: 'Email', url: 'mailto:747nadillananda@gmail.com' },
@@ -8,12 +20,25 @@ const socialLinks = [
     { name: 'GitHub', url: 'https://github.com/nadillananda' },
 ]
 
+// EmailJS Configuration - Replace these with your actual EmailJS credentials
+// Get these from https://dashboard.emailjs.com/admin
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID'
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID'
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY'
+const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'YOUR_RECAPTCHA_SITE_KEY'
+
 export default function Contact() {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         message: '',
     })
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+    const [errorMessage, setErrorMessage] = useState('')
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+    const captchaRef = useRef<HTMLDivElement>(null)
+    const captchaWidgetId = useRef<number | null>(null)
 
     const titleRef = useRef<HTMLHeadingElement>(null)
     const formRef = useRef<HTMLFormElement>(null)
@@ -45,12 +70,82 @@ export default function Contact() {
         return () => ctx.revert()
     }, [])
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // Initialize reCAPTCHA
+    useEffect(() => {
+        if (captchaRef.current && window.grecaptcha && RECAPTCHA_SITE_KEY !== 'YOUR_RECAPTCHA_SITE_KEY') {
+            window.grecaptcha.ready(() => {
+                if (captchaRef.current) {
+                    captchaWidgetId.current = window.grecaptcha.render(captchaRef.current, {
+                        sitekey: RECAPTCHA_SITE_KEY,
+                        callback: (token: string) => {
+                            setCaptchaToken(token)
+                        },
+                    })
+                }
+            })
+        }
+    }, [])
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Handle form submission
-        console.log('Form submitted:', formData)
-        alert('Thank you for your message! I\'ll get back to you soon.')
-        setFormData({ name: '', email: '', message: '' })
+        
+        // Check if captcha is verified
+        if (!captchaToken) {
+            setErrorMessage('Please complete the captcha verification')
+            setSubmitStatus('error')
+            return
+        }
+
+        // Check if EmailJS is configured
+        if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' || EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+            setErrorMessage('Email service is not configured. Please set up EmailJS credentials.')
+            setSubmitStatus('error')
+            return
+        }
+
+        setIsSubmitting(true)
+        setSubmitStatus('idle')
+        setErrorMessage('')
+
+        try {
+            // Prepare email template parameters
+            const templateParams = {
+                from_name: formData.name,
+                from_email: formData.email,
+                message: formData.message,
+                to_email: '747nadillananda@gmail.com',
+                'g-recaptcha-response': captchaToken,
+            }
+
+            // Send email using EmailJS
+            await emailjs.send(
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
+                templateParams,
+                EMAILJS_PUBLIC_KEY
+            )
+
+            // Success
+            setSubmitStatus('success')
+            setFormData({ name: '', email: '', message: '' })
+            setCaptchaToken(null)
+            
+            // Reset captcha
+            if (captchaWidgetId.current !== null && window.grecaptcha) {
+                window.grecaptcha.reset(captchaWidgetId.current)
+            }
+
+            // Reset status after 5 seconds
+            setTimeout(() => {
+                setSubmitStatus('idle')
+            }, 5000)
+        } catch (error) {
+            console.error('Email sending failed:', error)
+            setErrorMessage('Failed to send message. Please try again or contact directly via email.')
+            setSubmitStatus('error')
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     return (
@@ -78,14 +173,14 @@ export default function Contact() {
                 >
                     {/* Name Input */}
                     <div className="relative">
-                        <label className="label-small mb-2 block">Your Name</label>
+                        <label className="label-small mb-2 block">Name</label>
                         <input
                             type="text"
                             value={formData.name}
                             onChange={(e) =>
                                 setFormData({ ...formData, name: e.target.value })
                             }
-                            placeholder="Nadilla Ananda"
+                            placeholder="Your Name"
                             required
                             className="w-full bg-transparent border-b border-foreground/20 py-4 text-lg 
                          focus:outline-none focus:border-foreground transition-colors duration-300
@@ -127,14 +222,36 @@ export default function Contact() {
                         />
                     </div>
 
+                    {/* reCAPTCHA */}
+                    <div className="mt-6">
+                        <div ref={captchaRef} className="flex justify-start"></div>
+                        {!captchaToken && submitStatus === 'error' && errorMessage.includes('captcha') && (
+                            <p className="text-sm text-red-500 mt-2">{errorMessage}</p>
+                        )}
+                    </div>
+
                     {/* Submit Button */}
                     <button
                         type="submit"
+                        disabled={isSubmitting || !captchaToken}
                         className="mt-8 px-8 py-4 bg-foreground text-background font-medium text-sm 
-                       tracking-wide uppercase hover:bg-foreground/90 transition-colors duration-300"
+                       tracking-wide uppercase hover:bg-foreground/90 transition-colors duration-300
+                       disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Send Message
+                        {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
+
+                    {/* Status Messages */}
+                    {submitStatus === 'success' && (
+                        <div className="mt-4 p-4 bg-green-500/10 border border-green-500/30 text-green-500">
+                            <p className="text-sm">Message sent successfully! I'll get back to you soon.</p>
+                        </div>
+                    )}
+                    {submitStatus === 'error' && errorMessage && !errorMessage.includes('captcha') && (
+                        <div className="mt-4 p-4 bg-red-500/10 border border-red-500/30 text-red-500">
+                            <p className="text-sm">{errorMessage}</p>
+                        </div>
+                    )}
                 </form>
 
                 {/* Social Links */}

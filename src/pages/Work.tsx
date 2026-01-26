@@ -54,11 +54,10 @@ export default function Work() {
                     ref={titleRef}
                     className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter"
                 >
-                    Selected Work
+                    Work Projects
                 </h1>
                 <p className="text-muted text-lg mt-6 max-w-xl text-justify">
-                    A curated collection of projects spanning brand identity, web design,
-                    and digital experiences.
+                    A curated collection of projects.
                 </p>
             </section>
 
@@ -98,78 +97,6 @@ export default function Work() {
                                 </span>
                             </div>
                         </article>
-                    ))}
-                </div>
-            </section>
-
-            {/* Work Experience Section */}
-            <section className="pb-20 md:pb-32 max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-serif italic mb-12 text-center">Work Experience</h2>
-                <div className="space-y-8">
-                    {[
-                        {
-                            role: "IT Support",
-                            company: "PT. Asahi Sukses Industri",
-                            period: "November 2025 [Project]",
-                            description: "Managed network infrastructure and provided technical support for enterprise systems."
-                        },
-                        {
-                            role: "Full-Time Barista",
-                            company: "Navigasi Coffee",
-                            period: "March 2024 - August 2025",
-                            description: "Crafted high-quality coffee beverages and maintained excellent customer service standards."
-                        },
-                        {
-                            role: "Modelling",
-                            company: "Red Horse",
-                            period: "Febuary 2024 [Project]",
-                            description: "Collaborated with photographers and creative directors for commercial fashion campaigns."
-                        },
-                        {
-                            role: "Office Administrator",
-                            company: "PT. Octo Corindo",
-                            period: "December 2019 - February 2020",
-                            description: "Optimized office workflows and managed administrative operations for efficiency."
-                        },
-                    ].map((job, index) => (
-                        <div key={index} className="flex flex-col md:flex-row justify-between items-start border-b border-foreground/10 pb-6 group hover:border-foreground/30 transition-colors duration-300">
-                            <div className="md:max-w-md">
-                                <h3 className="text-xl font-medium mb-1">{job.role}</h3>
-                                <p className="text-muted mb-3">{job.company}</p>
-                                <p className="text-foreground/80 font-light text-sm leading-relaxed">{job.description}</p>
-                            </div>
-                            <span className="text-muted/60 font-mono text-sm mt-4 md:mt-0 flex-shrink-0">{job.period}</span>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Education Section */}
-            <section className="pb-20 md:pb-32 max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-serif italic mb-12 text-center">Education</h2>
-                <div className="space-y-8">
-                    {[
-                        {
-                            degree: "Computer Science (on academic leave)",
-                            school: "Universitas Pasundan",
-                            period: "2019 - 2023",
-                            description: "Focus on Enterprise Systems & Database Management."
-                        },
-                        {
-                            degree: "High School Diploma",
-                            school: "SMKS Informatika Amanah Bangsa",
-                            period: "2016 - 2019",
-                            description: "Science Major with focus on Physics and Mathematics."
-                        }
-                    ].map((edu, index) => (
-                        <div key={index} className="flex flex-col md:flex-row justify-between items-start border-b border-foreground/10 pb-6 group hover:border-foreground/30 transition-colors duration-300">
-                            <div className="md:max-w-md">
-                                <h3 className="text-xl font-medium mb-1">{edu.degree}</h3>
-                                <p className="text-muted mb-3">{edu.school}</p>
-                                <p className="text-foreground/80 font-light text-sm leading-relaxed">{edu.description}</p>
-                            </div>
-                            <span className="text-muted/60 font-mono text-sm mt-4 md:mt-0 flex-shrink-0">{edu.period}</span>
-                        </div>
                     ))}
                 </div>
             </section>

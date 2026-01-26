@@ -1,7 +1,7 @@
 export const projects = [
     {
         id: 1,
-        name: 'Website & Application',
+        name: 'Develope Web/App',
         category: 'Development',
         year: '2024',
         image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800',
@@ -25,7 +25,7 @@ export const projects = [
     },
     {
         id: 4,
-        name: 'Photo & Videography',
+        name: 'Photo/Video',
         category: 'Capture Moments',
         year: '2023',
         image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&w=800',

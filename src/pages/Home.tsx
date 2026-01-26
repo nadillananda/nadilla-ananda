@@ -339,23 +339,22 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* SELECTED WORKS SECTION (Section 3) */}
+            {/* WORK PROJECTS SECTION (Section 3) */}
             <section ref={worksRef} className="py-24 md:py-32 px-6 md:px-12 bg-background relative z-10 text-foreground">
                 <div className="max-w-[95rem] mx-auto w-full">
                     {/* Header */}
                     <div className="mb-16 md:mb-24">
                         <h2 ref={worksHeaderRef} className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight">
-                            Selected <span className="font-serif italic text-muted">Works</span>
+                            Work <span className="font-serif italic text-muted">Projects</span>
                         </h2>
                     </div>
 
                     {/* Grid */}
-                    <div ref={worksGridRef} className="grid grid-cols-1 md:grid-cols-3 gap-y-16 gap-x-12">
+                    <div ref={worksGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 lg:gap-x-10">
                         {projects.map((project) => (
                             <Link to="/work" key={project.id} className="work-card group block">
-                                <div className="relative aspect-[4/3] overflow-hidden mb-6">
-                                    <div className="absolute inset-0 bg-foreground/10 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+                                <div className="relative aspect-[4/3] overflow-hidden mb-5">
+                                    <div className="absolute inset-0 bg-foreground/5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                                     <img
                                         src={project.image}
@@ -363,9 +362,9 @@ export default function Home() {
                                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out-expo grayscale group-hover:grayscale-0"
                                     />
                                 </div>
-                                <div className="flex justify-between items-end border-b border-foreground/20 pb-4 group-hover:border-foreground transition-colors duration-500">
-                                    <h3 className="text-3xl md:text-4xl font-serif italic">{project.name}</h3>
-                                    <span className="text-xs uppercase tracking-widest text-muted group-hover:text-foreground transition-colors duration-300">{project.category}</span>
+                                <div className="flex justify-between items-end border-b-2 border-foreground/15 pb-4 group-hover:border-foreground/40 transition-all duration-500">
+                                    <h3 className="text-xl md:text-2xl lg:text-3xl font-serif italic leading-tight pr-4">{project.name}</h3>
+                                    <span className="text-xs uppercase tracking-widest text-muted group-hover:text-foreground transition-colors duration-300 whitespace-nowrap flex-shrink-0">{project.category}</span>
                                 </div>
                             </Link>
                         ))}
