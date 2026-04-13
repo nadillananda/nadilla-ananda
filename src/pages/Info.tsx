@@ -167,6 +167,38 @@ export default function Info() {
                             ))}
                         </ul>
                     </div>
+
+                    {/* Services */}
+                    <div className="info-section">
+                        <h3 className="label-small mb-6">Services &amp; focus</h3>
+                        <ul className="flex flex-wrap gap-2">
+                            {services.map((item) => (
+                                <li
+                                    key={item}
+                                    className="text-sm px-3 py-1.5 rounded-full border border-foreground/15 text-muted"
+                                >
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Awards */}
+                    <div className="info-section">
+                        <h3 className="label-small mb-6">Awards</h3>
+                        <ul className="space-y-4">
+                            {awards.map((award) => (
+                                <li
+                                    key={award.name + award.year}
+                                    className="border-b border-foreground/10 pb-4 last:border-0 last:pb-0"
+                                >
+                                    <p className="font-medium">{award.name}</p>
+                                    <p className="text-muted text-sm mt-1">{award.project}</p>
+                                    <span className="text-muted text-xs">{award.year}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
             </section>
 
