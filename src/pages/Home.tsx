@@ -1,27 +1,16 @@
-
 import { useEffect, useRef, useState } from 'react'
-import homePageImg from '../assets/home-page.jpg'
-import introBackgroundImg from '../assets/intro-background.jpg'
-import aboutProfileImg from '../assets/about-profile.jpg'
-
-// ... (keep existing imports)
-
-// ... inside component ...
-<img
-    src={homePageImg}
-    alt="Background"
-    className="w-full h-full object-cover grayscale"
-/>
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+import introBackgroundImg from '../assets/intro-background.jpg'
+import aboutProfileImg from '../assets/about-profile.jpg'
+import { workEntries } from '../data/workEntries'
+
 gsap.registerPlugin(ScrollTrigger)
 
-import { projects } from '../data/projects'
-
 const skills = {
-    capabilities: ["Full-Stack Development", , "UI/UX ", "Media Design", "Beverage Development", "Coffee Roastery"],
+    capabilities: ["Full-Stack Development", "UI/UX", "Media Design", "Beverage Development", "Coffee Roastery"],
     expertise: ["React.js / Next.js", "TypeScript", "MySQL / Node.js", "Tailwind CSS", "Figma"],
     inspiration: ["Cinema", "Brutalism", "Art Deco", "Music", "Art"]
 }
@@ -38,7 +27,7 @@ export default function Home() {
     const aboutRef = useRef<HTMLDivElement>(null)
     const aboutTopTextRef = useRef<HTMLDivElement>(null)
     const aboutSplitTextRef = useRef<HTMLDivElement>(null)
-    const aboutImgRef = useRef<HTMLImageElement>(null) // Changed to HTMLImageElement for direct image ref
+    const aboutImgRef = useRef<HTMLImageElement>(null)
     const aboutBioRef = useRef<HTMLDivElement>(null)
 
     // Works Refs
@@ -91,7 +80,7 @@ export default function Home() {
                 )
 
             // About Section Animations
-            // Animate Top Text (As a digital designer...)
+            // Animate Top Text (about headline)
             gsap.fromTo(aboutTopTextRef.current,
                 { y: 50, opacity: 0 },
                 {
@@ -238,7 +227,7 @@ export default function Home() {
                 {/* Top Center Text */}
                 <div ref={topTextRef} className="relative z-10 text-center mt-10 md:mt-16">
                     <h2 className="text-xl md:text-2xl lg:text-3xl font-serif italic text-muted mb-2">
-                        A Creative Partner <span className="text-foreground not-italic font-sans text-lg md:text-xl">for companies and brands</span>
+                        A designer who codes <span className="text-foreground not-italic font-sans text-lg md:text-xl">for companies and brands</span>
                     </h2>
                     <p className="text-foreground text-lg md:text-xl font-medium">
                         that decide to move forward.
@@ -252,15 +241,15 @@ export default function Home() {
                     </h1>
                 </div>
 
-                {/* Bottom Elements */}
-                <div ref={bottomRef} className="relative z-10 w-full flex flex-col md:flex-row justify-between items-end md:items-end gap-6 text-xs md:text-sm font-medium tracking-widest uppercase">
+                {/* Bottom Elements — flex-1 on outer columns keeps socials truly centered on md */}
+                <div ref={bottomRef} className="relative z-10 w-full flex flex-col md:flex-row items-end gap-6 text-xs md:text-sm font-medium tracking-widest uppercase">
                     {/* Location / Time */}
-                    <div className="order-2 md:order-1 text-muted">
+                    <div className="order-2 md:order-1 flex-1 flex justify-center md:justify-start text-muted">
                         <span>JAKARTA {time}</span>
                     </div>
 
                     {/* Socials */}
-                    <div className="order-1 md:order-2 flex w-full md:w-auto justify-center md:justify-center gap-6 text-foreground/80 mb-6 md:mb-0">
+                    <div className="order-1 md:order-2 flex shrink-0 justify-center gap-6 text-foreground/80 mb-6 md:mb-0">
                         <a href="#" className="hover:text-foreground transition-colors">Instagram</a>
 
                         <span className="text-muted">/</span>
@@ -270,7 +259,9 @@ export default function Home() {
                     </div>
 
                     {/* Spacer for Navbar */}
-                    <div className="order-3 md:order-3 w-px h-px invisible"></div>
+                    <div className="order-3 md:order-3 flex-1 flex justify-center md:justify-end pointer-events-none" aria-hidden>
+                        <div className="w-px h-px overflow-hidden opacity-0" />
+                    </div>
                 </div>
             </section>
 
@@ -279,17 +270,14 @@ export default function Home() {
                 <div className="max-w-[95rem] mx-auto w-full">
 
                     {/* Top Large Text */}
-                    <div ref={aboutTopTextRef} className="mb-12 md:mb-20 text-center md:text-left">
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-normal leading-[1.1] tracking-tight">
-                            As a <span className="font-serif italic font-light">digital designer who codes</span>, I help brands and <br className="hidden lg:block" />
-                            companies connect with their audience, achieve their-
+                    <div ref={aboutTopTextRef} className="mb-5 md:mb-6 text-center md:text-left">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-normal leading-[1.08] md:leading-[1.04] tracking-tight text-balance">
+                            <span className="font-serif italic font-light">I design, I code</span>, and I create experience that don’t just look good & appealing—
                         </h2>
                     </div>
 
                     {/* Split Layout */}
-                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-24 items-start">
-
-                        {/* Image (Left) - Spans 5 cols */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
                         <div className="md:col-span-5 relative order-2 md:order-1">
                             <div className="relative w-full aspect-[4/5] overflow-hidden">
                                 <img
@@ -302,25 +290,24 @@ export default function Home() {
                         </div>
 
                         {/* Right Content - Spans 7 cols */}
-                        <div className="md:col-span-7 flex flex-col justify-between order-1 md:order-2 h-full">
+                        <div className="md:col-span-7 flex flex-col order-1 md:order-2">
                             {/* Continuation Text */}
-                            <div ref={aboutSplitTextRef} className="mb-16 md:mb-auto text-center md:text-left">
-                                <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-normal leading-[1.1] tracking-tight">
-                                    business goals, and <span className="font-serif italic font-light">leave a mark</span> <br className="hidden lg:block" />
-                                    in a fast-moving world.
+                            <div ref={aboutSplitTextRef} className="-mt-2 md:-mt-3 mb-7 md:mb-8 w-full text-left text-justify">
+                                <h2 className="w-full text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-normal leading-[1.1] md:leading-[1.06] tracking-tight">
+                                    but to connect, grow, and leave a lasting impression.
                                 </h2>
                             </div>
 
                             {/* Bio & Link */}
-                            <div ref={aboutBioRef} className="grid md:grid-cols-2 gap-8 items-end mt-auto">
-                                <div className="space-y-8">
+                            <div ref={aboutBioRef} className="grid md:grid-cols-2 gap-8 items-start pt-7 md:pt-12">
+                                <div className="space-y-7">
                                     <div className="flex justify-between items-center md:hidden">
                                         <span className="text-sm uppercase tracking-widest text-muted">(Info)</span>
                                     </div>
                                     <p className="text-base md:text-lg text-gray-300 leading-relaxed font-light">
-                                        I specialize in creating brand identities with web experiences. I believe
-                                        in the power of thoughtful design to solve complex business problems
-                                        and create lasting connections with audiences.
+                                        My name is Nadilla, i'm a tech and design enthusiast. I believe
+                                        thoughtful design with a great code can solve complex business problems
+                                        and create lasting connections.
                                     </p>
                                     <div>
                                         <Link to="/info" className="inline-block text-lg font-medium border-b border-foreground/30 pb-1 hover:border-foreground transition-colors hover:text-white">
@@ -329,8 +316,7 @@ export default function Home() {
                                     </div>
                                 </div>
 
-                                {/* Desktop Info Label */}
-                                <div className="hidden md:flex justify-end h-full items-center">
+                                <div className="hidden md:flex justify-end items-start pt-1">
                                     <span className="text-sm uppercase tracking-widest text-muted">(Info)</span>
                                 </div>
                             </div>
@@ -343,36 +329,161 @@ export default function Home() {
             <section ref={worksRef} className="py-24 md:py-32 px-6 md:px-12 bg-background relative z-10 text-foreground">
                 <div className="max-w-[95rem] mx-auto w-full">
                     {/* Header */}
-                    <div className="mb-16 md:mb-24">
-                        <h2 ref={worksHeaderRef} className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight">
-                            Work <span className="font-serif italic text-muted">Projects</span>
+                    <div className="max-w-[95rem] mx-auto w-full">
+                    <div className="mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                        <div className="max-w-3xl">
+                            <div className="text-sm uppercase tracking-widest text-muted mb-3">
+                                projects
+                            </div>
+                            <h2 ref={worksHeaderRef} className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight">
+                            Work<span className="font-serif italic text-muted"> Projects</span>
                         </h2>
+                            <p className="mt-4 md:mt-5 text-sm md:text-base text-muted leading-relaxed font-light max-w-2xl">
+                                Web/app and full-stack builds work that shows how i ship end to end.
+                            </p>
+                        </div>
+                    </div>
                     </div>
 
-                    {/* Grid */}
-                    <div ref={worksGridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-6 lg:gap-x-10">
-                        {projects.map((project) => (
-                            <Link to="/work" key={project.id} className="work-card group block">
-                                <div className="relative aspect-[4/3] overflow-hidden mb-5">
-                                    <div className="absolute inset-0 bg-foreground/5 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+                    {/* Grid — compact cards; max width keeps scale slightly smaller on very wide screens */}
+                    <div ref={worksGridRef} className="mx-auto max-w-[85rem] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
+                        {workEntries.slice(0, 3).map((entry) => (
+                            <Link
+                                to="/work"
+                                key={entry.name}
+                                className="work-card group block rounded-lg overflow-hidden border border-foreground/[0.08] bg-foreground/[0.02] hover:bg-foreground/[0.04] hover:border-foreground/15 transition-colors shadow-sm shadow-black/5"
+                            >
+                                <div className="relative flex items-center justify-center aspect-[5/3] bg-foreground/[0.05] overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-50 group-hover:opacity-25 transition-opacity duration-500 z-10 pointer-events-none" />
                                     <img
-                                        src={project.image}
-                                        alt={project.name}
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out-expo grayscale group-hover:grayscale-0"
+                                        src={`/${entry.name}.png`}
+                                        alt={entry.title}
+                                        className="w-full h-full object-contain p-2 transition-transform duration-500 ease-out group-hover:scale-[1.02] grayscale group-hover:grayscale-0"
                                     />
                                 </div>
-                                <div className="flex justify-between items-end border-b-2 border-foreground/15 pb-4 group-hover:border-foreground/40 transition-all duration-500">
-                                    <h3 className="text-xl md:text-2xl lg:text-3xl font-serif italic leading-tight pr-4">{project.name}</h3>
-                                    <span className="text-xs uppercase tracking-widest text-muted group-hover:text-foreground transition-colors duration-300 whitespace-nowrap flex-shrink-0">{project.category}</span>
+
+                                <div className="p-3 md:p-4">
+                                    <div className="flex items-center justify-between gap-3 mb-1.5">
+                                        <span className="text-[10px] md:text-xs uppercase tracking-widest text-muted group-hover:text-foreground/80 transition-colors whitespace-nowrap">
+                                            {entry.category}
+                                        </span>
+                                        <span className="text-[10px] font-mono text-muted/60 group-hover:text-muted transition-colors whitespace-nowrap">
+                                            View
+                                        </span>
+                                    </div>
+
+                                    <div className="flex items-end justify-between gap-3 border-b border-foreground/10 pb-2.5 group-hover:border-foreground/25 transition-colors">
+                                        <h3 className="text-lg md:text-xl font-serif italic leading-snug pr-2">
+                                            {entry.title}
+                                        </h3>
+                                        <span className="text-[10px] uppercase tracking-widest text-muted group-hover:text-foreground transition-colors shrink-0">
+                                            →
+                                        </span>
+                                    </div>
                                 </div>
                             </Link>
                         ))}
                     </div>
+
+                    <div className="sm:hidden mt-8">
+                        <Link
+                            to="/work"
+                            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-muted hover:text-foreground transition-colors pb-1 border-b border-foreground/15 hover:border-foreground/40"
+                        >
+                            See more
+                            <span className="translate-x-0 hover:translate-x-1 transition-transform">→</span>
+                        </Link>
+                    </div>
                 </div>
             </section>
 
-            {/* KEY SKILLS & INTERESTS SECTION (Section 4) */}
+            {/* COURSES & CERTIFICATES HIGHLIGHT (Section 4) */}
+            <section className="py-16 md:py-20 px-6 md:px-12 bg-background relative z-10 text-foreground border-t border-foreground/10">
+                <div className="max-w-[95rem] mx-auto w-full">
+                    <div className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                        <div>
+                            <div className="text-sm uppercase tracking-widest text-muted mb-3">
+                                Learning Journey
+                            </div>
+                            <h2 ref={worksHeaderRef} className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight">
+                            Courses &<span className="font-serif italic text-muted"> Certificates</span>
+                        </h2>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                        {/* Course Card */}
+                        <Link
+                            to="/info"
+                            className="group relative overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/[0.02] hover:bg-foreground/[0.05] transition-colors p-6 md:p-7"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-foreground/5 via-transparent to-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                            <div className="flex items-center justify-between gap-4 mb-4">
+                                <span className="text-xs uppercase tracking-widest text-muted">
+                                    Course
+                                </span>
+                                <span className="text-[11px] font-mono text-muted/70">
+                                    Completed
+                                </span>
+                            </div>
+
+                            <h3 className="text-xl md:text-2xl font-serif italic mb-2">
+                            AI for Productivity & API Integration
+                            </h3>
+                            <p className="text-sm md:text-base text-muted mb-4">
+                                Deepening skills in Express.JS, Postman, consistent LLM systems, and interactive chatbot UI.
+                            </p>
+
+                            <div className="flex items-center justify-between text-xs text-muted/80">
+                                <span>Online programs</span>
+                                <span className="inline-flex items-center gap-1 group-hover:text-foreground transition-colors">
+                                    View details
+                                    <span className="translate-x-0 group-hover:translate-x-1 transition-transform">
+                                        →
+                                    </span>
+                                </span>
+                            </div>
+                        </Link>
+
+                        {/* Certificate Card */}
+                        <Link
+                            to="/info"
+                            className="group relative overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/[0.02] hover:bg-foreground/[0.05] transition-colors p-6 md:p-7"
+                        >
+                            <div className="absolute inset-0 bg-gradient-to-br from-foreground/5 via-transparent to-foreground/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+
+                            <div className="flex items-center justify-between gap-4 mb-4">
+                                <span className="text-xs uppercase tracking-widest text-muted">
+                                    Certificate
+                                </span>
+                                <span className="text-[11px] font-mono text-muted/70">
+                                    Selected
+                                </span>
+                            </div>
+
+                            <h3 className="text-xl md:text-2xl font-serif italic mb-2">
+                                EFSet English Certificate
+                            </h3>
+                            <p className="text-sm md:text-base text-muted mb-4">
+                                Certification in communication, reading, writing, listening, and has successfully reached C1 english level.
+                            </p>
+
+                            <div className="flex items-center justify-between text-xs text-muted/80">
+                                <span>Self-paced and online programs</span>
+                                <span className="inline-flex items-center gap-1 group-hover:text-foreground transition-colors">
+                                    View details
+                                    <span className="translate-x-0 group-hover:translate-x-1 transition-transform">
+                                        →
+                                    </span>
+                                </span>
+                            </div>
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* KEY SKILLS & INTERESTS SECTION (Section 5) */}
             <section ref={skillsRef} className="py-24 md:py-32 px-6 md:px-12 bg-background relative z-10 text-foreground border-t border-foreground/10">
                 <div className="max-w-[95rem] mx-auto w-full">
                     {/* Header */}
@@ -424,9 +535,18 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* CONTACT SECTION (Section 5) */}
-            <section className="py-24 md:py-32 px-6 md:px-12 bg-background relative z-10 text-foreground">
-                <div className="max-w-[95rem] mx-auto w-full">
+            {/* CONTACT SECTION (final / outro) */}
+            <section className="relative min-h-screen w-full flex flex-col justify-between py-10 px-6 md:px-12 overflow-hidden">
+                <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
+                    <img
+                        src={introBackgroundImg}
+                        alt="Contact Background"
+                        className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute inset-0 bg-background/50" />
+                </div>
+
+                <div className="relative z-10 w-full max-w-[95rem] mx-auto pt-12 md:pt-16">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
 
                         {/* Left: Heading */}
@@ -487,57 +607,13 @@ export default function Home() {
 
                     </div>
                 </div>
-            </section>
 
-            {/* OUTRO SECTION */}
-            <section className="relative h-screen w-full flex flex-col items-center justify-between py-10 px-6 md:px-12 overflow-hidden">
-                <div className="absolute inset-0 z-0 opacity-100 pointer-events-none">
-                    <img
-                        src={introBackgroundImg}
-                        alt="Outro Background"
-                        className="w-full h-full object-cover object-center"
-                    />
-                    <div className="absolute inset-0 bg-background/50" />
-                </div>
-
-                {/* Top Section: Heading & Contact Link */}
-                <div ref={topTextRef} className="relative z-10 text-center mt-10 md:mt-16">
-                    <h2 className="text-xl md:text-2xl lg:text-3xl font-serif italic text-muted mb-2">
-                        Have an idea? <span className="text-foreground not-italic font-sans text-lg md:text-xl">Let's make it happen</span>
-                    </h2>
-                    <p className="text-foreground text-lg md:text-xl font-medium">
-                        Let's turn your vision into reality.
-                    </p>
-
-                    <Link to="/contact" className="text-1xl md:text-2xl font-light tracking-tight hover:italic hover:text-muted transition-all duration-300">
-                        (contact me here)
-                    </Link>
-                </div>
-
-                {/* Main Name */}
-                <div className="relative z-10 w-full text-center mt-auto mb-20 md:mb-10 flex flex-col items-center">
-                    <h1 className="font-serif text-[clamp(4rem,10vw,12rem)] leading-[0.85] tracking-tight whitespace-nowrap">
-                        Nadilla <span className="italic">Ananda</span>
-                    </h1>
-                </div>
-
-                {/* Bottom Elements: Socials, Copyright, Scroll Top */}
-                <div className="relative z-10 w-full flex flex-col md:flex-row justify-between items-end gap-6 text-xs uppercase tracking-widest text-muted/60">
-
-                    {/* Copyright (Left) */}
-                    <div className="order-3 md:order-1 text-center md:text-left w-full md:w-auto">
+                {/* Bottom bar: copyright left, back-to-top right */}
+                <div className="relative z-10 w-full max-w-[95rem] mx-auto flex items-end justify-between gap-6 text-xs uppercase tracking-widest text-muted/60 pb-2">
+                    <div className="text-left">
                         <span>© {new Date().getFullYear()} Nadilla Ananda</span>
                     </div>
-
-                    {/* Socials (Center) */}
-                    <div className="order-2 md:order-2 flex gap-6 w-full md:w-auto justify-center">
-                        <a href="https://instagram.com/s4inteves" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
-                        <a href="https://github.com/nadillananda" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Github</a>
-                        <a href="https://www.linkedin.com/in/nadillananda/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Linkedin</a>
-                    </div>
-
-                    {/* Scroll to Top (Right) */}
-                    <div className="order-1 md:order-3 w-full md:w-auto flex justify-center md:justify-end">
+                    <div className="flex justify-end">
                         <button
                             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                             className="hover:text-foreground transition-colors flex items-center gap-2"
