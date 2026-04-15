@@ -250,12 +250,12 @@ export default function Home() {
 
                     {/* Socials */}
                     <div className="order-1 md:order-2 flex shrink-0 justify-center gap-6 text-foreground/80 mb-6 md:mb-0">
-                        <a href="#" className="hover:text-foreground transition-colors">Instagram</a>
+                        <a href="https://instagram.com/s4inteves" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
 
                         <span className="text-muted">/</span>
-                        <a href="#" className="hover:text-foreground transition-colors">GitHub</a>
+                        <a href="https://github.com/nadillananda" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">GitHub</a>
                         <span className="text-muted">/</span>
-                        <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
+                        <a href="https://www.linkedin.com/in/nadillananda/" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">LinkedIn</a>
                     </div>
 
                     {/* Spacer for Navbar */}
@@ -405,7 +405,7 @@ export default function Home() {
                             <div className="text-sm uppercase tracking-widest text-muted mb-3">
                                 Learning Journey
                             </div>
-                            <h2 ref={worksHeaderRef} className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight">
+                            <h2 className="text-5xl md:text-7xl lg:text-8xl font-sans font-normal tracking-tight">
                             Courses &<span className="font-serif italic text-muted"> Certificates</span>
                         </h2>
                         </div>
