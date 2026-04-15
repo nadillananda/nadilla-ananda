@@ -242,14 +242,14 @@ export default function Home() {
                 </div>
 
                 {/* Bottom Elements — flex-1 on outer columns keeps socials truly centered on md */}
-                <div ref={bottomRef} className="relative z-10 w-full flex flex-col md:flex-row items-end gap-6 text-xs md:text-sm font-medium tracking-widest uppercase">
+                <div ref={bottomRef} className="relative z-10 w-full flex flex-col md:flex-row items-center md:items-end gap-6 text-xs md:text-sm font-medium tracking-widest uppercase">
                     {/* Location / Time */}
-                    <div className="order-2 md:order-1 flex-1 flex justify-center md:justify-start text-muted">
+                    <div className="order-2 md:order-1 w-full md:flex-1 flex justify-center md:justify-start text-muted">
                         <span>JAKARTA {time}</span>
                     </div>
 
                     {/* Socials */}
-                    <div className="order-1 md:order-2 flex shrink-0 justify-center gap-6 text-foreground/80 mb-6 md:mb-0">
+                    <div className="order-1 md:order-2 w-full md:w-auto flex shrink-0 justify-center gap-6 text-foreground/80 mb-6 md:mb-0">
                         <a href="https://instagram.com/s4inteves" target="_blank" rel="noreferrer" className="hover:text-foreground transition-colors">Instagram</a>
 
                         <span className="text-muted">/</span>
@@ -259,7 +259,7 @@ export default function Home() {
                     </div>
 
                     {/* Spacer for Navbar */}
-                    <div className="order-3 md:order-3 flex-1 flex justify-center md:justify-end pointer-events-none" aria-hidden>
+                    <div className="order-3 md:order-3 hidden md:flex flex-1 justify-center md:justify-end pointer-events-none" aria-hidden>
                         <div className="w-px h-px overflow-hidden opacity-0" />
                     </div>
                 </div>
@@ -270,8 +270,8 @@ export default function Home() {
                 <div className="max-w-[95rem] mx-auto w-full">
 
                     {/* Top Large Text */}
-                    <div ref={aboutTopTextRef} className="mb-5 md:mb-6 text-center md:text-left">
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-normal leading-[1.08] md:leading-[1.04] tracking-tight text-balance">
+                    <div ref={aboutTopTextRef} className="mb-5 md:mb-6 w-full text-left text-justify md:text-left">
+                        <h2 className="w-full text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-normal leading-[1.08] md:leading-[1.04] tracking-tight">
                             <span className="font-serif italic font-light">I design, I code</span>, and I create experience that don’t just look good & appealing—
                         </h2>
                     </div>
